@@ -1,36 +1,34 @@
-import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# Configuración de la conexión a PostgreSQL
-# (Reemplaza 'usuario', 'contraseña', 'localhost:5432' y 'mi_base_de_datos' con tus datos reales)
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://usuario:contraseña@localhost:5432/mi_base_de_datos"
-)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = SQLAlchemy(app)
-
-
-# Ejemplo de una tabla (Modelo) para la base de datos
-class Registro(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
-  mensaje = db.Column(db.String(200), nullable=False)
-
-  def __repr__(self):
-    return f"<Registro {self.mensaje}>"
-
 
 @app.route("/")
-def home():
-  return (
-      "¡Hola! Mi servidor Flask con PostgreSQL está configurado correctamente."
-  )
+def inicio():
+  # Todo este diseño HTML está siendo generado y controlado por Python
+  return """
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mi Página Web en Python</title>
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #eef2f3; text-align: center; padding-top: 50px; }
+            h1 { color: #2c3e50; }
+            p { font-size: 18px; color: #555; }
+            .card { background: white; max-width: 500px; margin: 0 auto; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h1>¡Hola, profe! 👋</h1>
+            <p>Esta página web está programada y ejecutada con <strong>Python y Flask</strong>.</p>
+            <p>Proyecto subido exitosamente a GitHub.</p>
+        </div>
+    </body>
+    </html>
+    """
 
 
 if __name__ == "__main__":
-  with app.app_context():
-    db.create_all()  # Crea las tablas en la base de datos si no existen
   app.run(debug=True)
